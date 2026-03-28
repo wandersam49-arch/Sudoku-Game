@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/icon.png">
+</head>
+<body class="theme-enhanced">
+
+    <!-- SLIDER -->
+    <!--div id="ThemeToggle" title="Change Style Visual">
+        <span class="toggle-label active" id="LabelClassic">Classic</span>
+        <div class="track" id="ThemeTrack">
+            <div class="thumb"></div>
+        </div>
+        <span class="toggle-label" id="LabelEnhanced">Enhanced</span>
+    </div -->
+
+    <header>
+        <h1>
+            Sudoku
+            <img src="assets/icon.png" class="title-icon" alt="Icono">
+            Game
+        </h1>
+    </header>
+    <main id="MainMenu">
+        <h2>Select Difficulty</h2>
+        <div class="difficulty-grid">
+            <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+            <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+        </div>
+    </main>
+    <section id="GameContainer">
+        <div id="GamePanel">
+            <div id="GameTopBar">
+                <div class="stat">Time: <span id="Timer">00:00</span></div>
+                <div class="stat">Tries: <span id="AttemptsLeft">0</span></div>
+                <div class="stat">Difficulty: <span id="CurrentDifficulty">-</span></div>
+                <button id="quit-game">Quit</button>
+            </div>
+            <main id="GameBoard"></main>
+            <div id="Controls"></div>
+        </div>
+    </section>
+    <div id="EndScreen" class="hidden">
+        <div class="end-card">
+            <h2 id="EndTitle"></h2>
+            <div id="EndStats"></div>
+            <button id="back-to-menu">Back to Menu</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+    <script>
+        (function () {
+            const track    = document.getElementById('ThemeTrack');
+            const lblClas  = document.getElementById('LabelClassic');
+            const lblEnh   = document.getElementById('LabelEnhanced');
+            const STORAGE_KEY = 'sudoku-theme';
+
+            function applyTheme(theme) {
+                document.body.classList.remove('theme-classic', 'theme-enhanced');
+                document.body.classList.add(theme);
+                lblClas.classList.toggle('active', theme === 'theme-classic');
+                lblEnh.classList.toggle('active',  theme === 'theme-enhanced');
+                localStorage.setItem(STORAGE_KEY, theme);
+            }
+
+            track.addEventListener('click', function () {
+                const current = document.body.classList.contains('theme-enhanced')
+                    ? 'theme-enhanced'
+                    : 'theme-classic';
+                applyTheme(current === 'theme-classic' ? 'theme-enhanced' : 'theme-classic');
+            });
+
+            // Restaurar preferencia guardada
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved === 'theme-enhanced') applyTheme('theme-enhanced');
+        })();
+    </script>
+</body>
+</html>
