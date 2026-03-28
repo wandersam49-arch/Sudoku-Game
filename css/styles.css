@@ -10,6 +10,13 @@
     --red:    #E71D36;
     --text:   #EDEDED;
     --panel:  #1f2335;
+
+    /* Tamaño del tablero: se adapta al viewport, mín 280px, máx 480px */
+    --board-size: min(480px, calc(100vw - 32px), calc(100vh - 260px));
+    --box-size: calc(var(--board-size) / 3 - 6px);
+    --cell-font: calc(var(--board-size) / 20);
+    --num-btn-size: clamp(44px, 10vw, 62px);
+    --num-btn-font: clamp(18px, 5vw, 28px);
 }
 
 * { box-sizing: border-box; }
@@ -38,9 +45,7 @@
     letter-spacing: 0.5px;
 }
 
-#ThemeToggle .toggle-label.active {
-    color: #EDEDED;
-}
+#ThemeToggle .toggle-label.active { color: #EDEDED; }
 
 #ThemeToggle .track {
     position: relative;
@@ -103,13 +108,13 @@ body.theme-classic {
 body.theme-classic header {
     background: radial-gradient(circle, #646790, #191a2400);
     border-radius: 30px;
-    padding: 18px 20px;
+    padding: 14px 20px;
     text-align: center;
 }
 
 body.theme-classic header h1 {
     margin: 0;
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -117,8 +122,8 @@ body.theme-classic header h1 {
 }
 
 body.theme-classic .title-icon {
-    width: 56px;
-    height: 56px;
+    width: clamp(36px, 7vw, 56px);
+    height: clamp(36px, 7vw, 56px);
     vertical-align: middle;
 }
 
@@ -126,15 +131,15 @@ body.theme-classic #MainMenu,
 body.theme-classic #GameContainer {
     width: calc(100% - 32px);
     max-width: 1400px;
-    margin: 16px auto;
+    margin: 12px auto;
     background: linear-gradient(90deg, #191A24, #1f2233);
     border: 1px solid #2a2f45;
     border-radius: 16px;
-    padding: 28px;
+    padding: clamp(16px, 4vw, 28px);
 }
 
 body.theme-classic #MainMenu {
-    min-height: calc(100vh - 140px);
+    min-height: calc(100vh - 120px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -142,13 +147,13 @@ body.theme-classic #MainMenu {
     gap: 18px;
 }
 
-body.theme-classic #MainMenu h2 { margin: 0; }
+body.theme-classic #MainMenu h2 { margin: 0; font-size: clamp(1rem, 4vw, 1.4rem); }
 
 body.theme-classic .difficulty-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(110px, 1fr));
+    grid-template-columns: repeat(3, minmax(80px, 1fr));
     gap: 12px;
-    width: min(420px, 100%);
+    width: min(360px, 100%);
 }
 
 body.theme-classic .difficulty-btn,
@@ -162,8 +167,8 @@ body.theme-classic #back-to-menu {
 }
 
 body.theme-classic .difficulty-btn {
-    padding: 14px 18px;
-    font-size: 18px;
+    padding: clamp(10px, 3vw, 14px) 12px;
+    font-size: clamp(14px, 4vw, 18px);
     background: #1f2335;
     color: var(--text);
     border: 1px solid #2f3655;
@@ -184,33 +189,35 @@ body.theme-classic #GameContainer.active { display: block; }
 
 body.theme-classic #GamePanel {
     display: flex;
-    gap: 24px;
-    align-items: flex-start;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 body.theme-classic #GameTopBar {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 18px;
+    margin-bottom: 4px;
 }
 
 body.theme-classic .stat {
     background: rgba(255,255,255,0.04);
     border: 1px solid #2a2f45;
-    padding: 10px 14px;
+    padding: 8px 12px;
     border-radius: 12px;
+    font-size: clamp(12px, 3vw, 14px);
+    white-space: nowrap;
 }
 
 body.theme-classic #quit-game {
     background: var(--red);
     color: white;
-    padding: 10px 16px;
+    padding: 8px 14px;
+    font-size: clamp(12px, 3vw, 14px);
 }
 
 body.theme-classic #quit-game:hover {
@@ -220,18 +227,18 @@ body.theme-classic #quit-game:hover {
 
 body.theme-classic #GameBoard {
     display: grid;
-    grid-template-columns: repeat(3, 150px);
-    grid-template-rows: repeat(3, 150px);
-    gap: 10px;
-    padding: 10px;
-    border-radius: 20px;
+    grid-template-columns: repeat(3, var(--box-size));
+    grid-template-rows: repeat(3, var(--box-size));
+    gap: clamp(4px, 1.5vw, 10px);
+    padding: clamp(6px, 2vw, 10px);
+    border-radius: 16px;
 }
 
 body.theme-classic .box {
     background: #1f2335;
     border: 1px solid #2f3655;
-    width: 150px;
-    height: 150px;
+    width: var(--box-size);
+    height: var(--box-size);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -249,7 +256,7 @@ body.theme-classic .slot {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: var(--cell-font);
     color: var(--text);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -276,23 +283,23 @@ body.theme-classic .slot.wrong {
 
 body.theme-classic #Controls {
     display: grid;
-    grid-template-columns: repeat(3, 60px);
-    gap: 10px;
+    grid-template-columns: repeat(9, var(--num-btn-size));
+    gap: clamp(4px, 1.5vw, 10px);
 }
 
 body.theme-classic .number-btn {
-    width: 60px;
-    height: 60px;
+    width: var(--num-btn-size);
+    height: var(--num-btn-size);
     background: #1f2335;
     border: 1px solid #2f3655;
     color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: var(--num-btn-font);
     cursor: pointer;
     transition: 0.2s;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 body.theme-classic .number-btn:hover {
@@ -315,7 +322,8 @@ body.theme-classic #EndScreen {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 16px;
+    z-index: 200;
 }
 
 body.theme-classic #EndScreen.hidden { display: none; }
@@ -325,12 +333,12 @@ body.theme-classic .end-card {
     background: linear-gradient(90deg, #191A24, #1f2233);
     border: 1px solid #2a2f45;
     border-radius: 20px;
-    padding: 28px;
+    padding: clamp(20px, 5vw, 28px);
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,.35);
 }
 
-body.theme-classic #EndTitle   { margin-top: 0; margin-bottom: 16px; font-size: 2rem; }
+body.theme-classic #EndTitle   { margin-top: 0; margin-bottom: 16px; font-size: clamp(1.5rem, 6vw, 2rem); }
 
 body.theme-classic #EndStats {
     display: grid;
@@ -339,11 +347,14 @@ body.theme-classic #EndStats {
     text-align: left;
 }
 
+body.theme-classic #EndStats p { margin: 0; font-size: clamp(13px, 3.5vw, 15px); }
+
 body.theme-classic #back-to-menu {
     background: var(--blue);
     color: white;
     padding: 12px 18px;
-    font-size: 16px;
+    font-size: clamp(13px, 3.5vw, 16px);
+    width: 100%;
 }
 
 body.theme-classic #back-to-menu:hover {
@@ -372,7 +383,7 @@ body.theme-enhanced {
 body.theme-enhanced header {
     background: linear-gradient(180deg, rgba(100,103,144,0.18) 0%, transparent 100%);
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    padding: 18px 20px;
+    padding: 14px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -391,7 +402,7 @@ body.theme-enhanced header::before {
 
 body.theme-enhanced header h1 {
     margin: 0;
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -400,8 +411,8 @@ body.theme-enhanced header h1 {
 }
 
 body.theme-enhanced .title-icon {
-    width: 56px;
-    height: 56px;
+    width: clamp(36px, 7vw, 56px);
+    height: clamp(36px, 7vw, 56px);
     vertical-align: middle;
     filter: drop-shadow(0 0 10px rgba(251,175,0,0.5));
     animation: float 3s ease-in-out infinite;
@@ -416,11 +427,11 @@ body.theme-enhanced #MainMenu,
 body.theme-enhanced #GameContainer {
     width: calc(100% - 32px);
     max-width: 1400px;
-    margin: 16px auto;
+    margin: 12px auto;
     background: rgba(25, 25, 36, 0.85);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 20px;
-    padding: 28px;
+    padding: clamp(16px, 4vw, 28px);
     position: relative;
     overflow: hidden;
 }
@@ -435,7 +446,7 @@ body.theme-enhanced #GameContainer::after {
 }
 
 body.theme-enhanced #MainMenu {
-    min-height: calc(100vh - 140px);
+    min-height: calc(100vh - 120px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -448,14 +459,14 @@ body.theme-enhanced #MainMenu h2 {
     color: rgba(237,237,237,0.7);
     letter-spacing: 2px;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: clamp(11px, 3vw, 13px);
 }
 
 body.theme-enhanced .difficulty-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(110px, 1fr));
+    grid-template-columns: repeat(3, minmax(80px, 1fr));
     gap: 14px;
-    width: min(420px, 100%);
+    width: min(360px, 100%);
 }
 
 body.theme-enhanced .difficulty-btn,
@@ -482,8 +493,8 @@ body.theme-enhanced #back-to-menu::after {
 }
 
 body.theme-enhanced .difficulty-btn {
-    padding: 16px 18px;
-    font-size: 18px;
+    padding: clamp(10px, 3vw, 16px) 12px;
+    font-size: clamp(14px, 4vw, 18px);
     background: var(--panel);
     color: var(--text);
     border: 1px solid rgba(255,255,255,0.08);
@@ -519,29 +530,29 @@ body.theme-enhanced #GameContainer.active { display: block; }
 
 body.theme-enhanced #GamePanel {
     display: flex;
-    gap: 28px;
-    align-items: flex-start;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 body.theme-enhanced #GameTopBar {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
 }
 
 body.theme-enhanced .stat {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.09);
-    padding: 10px 16px;
+    padding: 8px 14px;
     border-radius: 50px;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px);
     color: rgba(237,237,237,0.75);
+    white-space: nowrap;
 }
 
 body.theme-enhanced .stat span { font-weight: bold; color: var(--text); }
@@ -549,8 +560,8 @@ body.theme-enhanced .stat span { font-weight: bold; color: var(--text); }
 body.theme-enhanced #quit-game {
     background: linear-gradient(145deg, #E71D36, #8c0e1e);
     color: white;
-    padding: 10px 18px;
-    font-size: 14px;
+    padding: 8px 16px;
+    font-size: clamp(12px, 3vw, 14px);
     box-shadow: 0 3px 14px rgba(231,29,54,0.30);
 }
 
@@ -560,12 +571,13 @@ body.theme-enhanced #quit-game:hover {
     box-shadow: 0 6px 20px rgba(231,29,54,0.45);
 }
 
+/* ─── TABLERO ─── */
 body.theme-enhanced #GameBoard {
     display: grid;
-    grid-template-columns: repeat(3, 150px);
-    grid-template-rows: repeat(3, 150px);
-    gap: 8px;
-    padding: 12px;
+    grid-template-columns: repeat(3, var(--box-size));
+    grid-template-rows: repeat(3, var(--box-size));
+    gap: clamp(4px, 1.5vw, 8px);
+    padding: clamp(6px, 2vw, 12px);
     border-radius: 20px;
     background: rgba(0,0,0,0.25);
     border: 1px solid rgba(255,255,255,0.06);
@@ -575,8 +587,8 @@ body.theme-enhanced #GameBoard {
 body.theme-enhanced .box {
     background: rgba(31, 35, 53, 0.9);
     border: 1px solid rgba(255,255,255,0.07);
-    width: 150px;
-    height: 150px;
+    width: var(--box-size);
+    height: var(--box-size);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -595,7 +607,7 @@ body.theme-enhanced .slot {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: var(--cell-font);
     font-weight: 600;
     color: var(--text);
     cursor: pointer;
@@ -658,26 +670,27 @@ body.theme-enhanced .slot.wrong {
     50%       { background: rgba(231,29,54,0.40); }
 }
 
+/* ─── CONTROLES ─── */
 body.theme-enhanced #Controls {
     display: grid;
-    grid-template-columns: repeat(3, 60px);
-    gap: 10px;
+    grid-template-columns: repeat(9, var(--num-btn-size));
+    gap: clamp(4px, 1.5vw, 10px);
 }
 
 body.theme-enhanced .number-btn {
-    width: 60px;
-    height: 60px;
+    width: var(--num-btn-size);
+    height: var(--num-btn-size);
     background: rgba(31, 35, 53, 0.95);
     border: 1px solid rgba(255,255,255,0.1);
     color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
+    font-size: var(--num-btn-font);
     font-weight: 600;
     cursor: pointer;
     transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s, background 0.2s;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 body.theme-enhanced .number-btn:hover {
@@ -698,6 +711,7 @@ body.theme-enhanced .number-btn.completed {
     font-weight: 700;
 }
 
+/* ─── END SCREEN ─── */
 body.theme-enhanced #EndScreen {
     position: fixed;
     inset: 0;
@@ -706,8 +720,8 @@ body.theme-enhanced #EndScreen {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
-    z-index: 100;
+    padding: 16px;
+    z-index: 200;
 }
 
 body.theme-enhanced #EndScreen.hidden { display: none; }
@@ -717,7 +731,7 @@ body.theme-enhanced .end-card {
     background: linear-gradient(155deg, #1e2038, #191924);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 24px;
-    padding: 36px 32px 28px;
+    padding: clamp(20px, 5vw, 36px) clamp(16px, 5vw, 32px);
     text-align: center;
     box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
     animation: card-in 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.27);
@@ -740,8 +754,8 @@ body.theme-enhanced .end-card::before {
 
 body.theme-enhanced #EndTitle {
     margin-top: 0;
-    margin-bottom: 24px;
-    font-size: 2.6rem;
+    margin-bottom: 20px;
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
     background: linear-gradient(135deg, #fff 0%, rgba(237,237,237,0.7) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -751,7 +765,7 @@ body.theme-enhanced #EndTitle {
 body.theme-enhanced #EndStats {
     display: grid;
     gap: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
@@ -760,8 +774,8 @@ body.theme-enhanced #EndStats p {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.07);
     border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 14px;
+    padding: 9px 13px;
+    font-size: clamp(12px, 3.5vw, 14px);
     color: rgba(237,237,237,0.8);
 }
 
@@ -771,7 +785,7 @@ body.theme-enhanced #back-to-menu {
     background: linear-gradient(145deg, #007CBE, #004f78);
     color: white;
     padding: 13px 26px;
-    font-size: 15px;
+    font-size: clamp(13px, 3.5vw, 15px);
     box-shadow: 0 4px 18px rgba(0,124,190,0.35);
     width: 100%;
     letter-spacing: 0.3px;
@@ -781,6 +795,92 @@ body.theme-enhanced #back-to-menu:hover {
     filter: brightness(1.12);
     transform: translateY(-2px);
     box-shadow: 0 8px 26px rgba(0,124,190,0.50);
+}
+
+
+/* ════════════════════════════════════════════
+   RESPONSIVE — ajustes adicionales por breakpoint
+════════════════════════════════════════════ */
+
+/* Pantallas medianas: tablero y controles en columna */
+@media (max-width: 600px) {
+    :root {
+        --board-size: min(92vw, calc(100vh - 240px));
+    }
+
+    body.theme-classic #Controls,
+    body.theme-enhanced #Controls {
+        /* En móvil: 9 botones en una sola fila, se ajustan solos */
+        grid-template-columns: repeat(9, 1fr);
+        width: var(--board-size);
+    }
+
+    body.theme-classic #GameTopBar,
+    body.theme-enhanced #GameTopBar {
+        gap: 6px;
+    }
+
+    body.theme-classic .stat,
+    body.theme-enhanced .stat {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+}
+
+/* Pantallas muy pequeñas (≤360px) */
+@media (max-width: 360px) {
+    :root {
+        --board-size: 95vw;
+    }
+}
+
+/* Landscape en móvil: reducir altura del header y aprovechar ancho */
+@media (max-height: 500px) and (orientation: landscape) {
+    :root {
+        --board-size: min(55vw, 90vh);
+    }
+
+    body.theme-classic header,
+    body.theme-enhanced header {
+        padding: 8px 16px;
+    }
+
+    body.theme-classic header h1,
+    body.theme-enhanced header h1 {
+        font-size: 1.2rem;
+    }
+
+    body.theme-classic .title-icon,
+    body.theme-enhanced .title-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    body.theme-classic #MainMenu,
+    body.theme-enhanced #MainMenu {
+        min-height: calc(100vh - 80px);
+    }
+
+    body.theme-classic #GamePanel,
+    body.theme-enhanced #GamePanel {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    body.theme-classic #GameTopBar,
+    body.theme-enhanced #GameTopBar {
+        flex-direction: column;
+        align-items: flex-start;
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    body.theme-classic #Controls,
+    body.theme-enhanced #Controls {
+        grid-template-columns: repeat(3, var(--num-btn-size));
+        width: auto;
+    }
 }
 
 /* ════════════════════════════════════════════
