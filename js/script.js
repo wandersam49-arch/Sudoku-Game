@@ -25,9 +25,9 @@ let currentDifficulty = null;
 let gameActive = false;
 
 const DIFFICULTIES = {
-    easy:   { label: "Fácil",   holes: 35, attempts: 6 },
-    medium: { label: "Media",   holes: 45, attempts: 4 },
-    hard:   { label: "Difícil", holes: 55, attempts: 3 }
+    easy:   { label: "Easy",   holes: 35, attempts: 6 },
+    medium: { label: "Medium",   holes: 45, attempts: 4 },
+    hard:   { label: "Hard", holes: 55, attempts: 3 }
 };
 
 function shuffle(array) {
@@ -314,19 +314,19 @@ function endGame(won) {
     gameActive = false;
     stopTimer();
 
-    const statusText = won ? "¡Ganaste!" : "Perdiste";
+    const statusText = won ? "You Won" : "You Lost";
     EndTitle.textContent = statusText;
 
     const totalAttempts = currentDifficulty.attempts;
     const usedAttempts = totalAttempts - attemptsLeft;
 
     EndStats.innerHTML = `
-        <p><strong>Dificultad:</strong> ${currentDifficulty.label}</p>
-        <p><strong>Estado:</strong> ${won ? "Completado" : "Sin intentos"}</p>
-        <p><strong>Tiempo:</strong> ${formatTime(elapsedSeconds)}</p>
-        <p><strong>Intentos usados:</strong> ${usedAttempts} / ${totalAttempts}</p>
-        <p><strong>Errores:</strong> ${wrongAttempts}</p>
-        <p><strong>Celdas completadas:</strong> ${countFilledCells()} / 81</p>
+        <p><strong>Difficultly:</strong> ${currentDifficulty.label}</p>
+        <p><strong>State:</strong> ${won ? "Completed" : "Without Tries"}</p>
+        <p><strong>Time:</strong> ${formatTime(elapsedSeconds)}</p>
+        <p><strong>Tries Used:</strong> ${usedAttempts} / ${totalAttempts}</p>
+        <p><strong>Errors:</strong> ${wrongAttempts}</p>
+        <p><strong>Cells Completed:</strong> ${countFilledCells()} / 81</p>
     `;
 
     EndScreen.classList.remove("hidden");
